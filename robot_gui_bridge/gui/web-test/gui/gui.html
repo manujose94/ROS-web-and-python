@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="w3.css">
+  <link type="text/css" rel="stylesheet" href="styles.css">
+  <script type="text/javascript" src="../build/roslib.min.js"></script>
+  <script type="text/javascript" src="../build/nipplejs.js"></script>
+  <script type="text/javascript" src="./index.js"></script>
+</head>
+
+<body>
+  <h1>Simple ROS User Interface</h1>
+  <p>Connection status: <span id="status"></span></p>
+  <p>Last /txt_msg received: <span id="msg"></span></p>
+  <p>Suscribed to topic: <span id="topic"></span> => <span id="topicType"></span> <span id="connectTopic"></span></p>
+
+  <div id="stats"></div>
+  <ul class="w3-ul w3-card-4" style="width:10%">
+    <li>Robot Turtle1</li>
+    <li>
+
+      <div class="w3-container">
+        <div class="w3-container w3-red w3-cell">
+          <p>X</p>
+        </div>
+        <div class="w3-container w3-green w3-cell">
+          <span id="x">
+            <p></p>
+          </span>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="w3-container">
+        <div class="w3-container w3-red w3-cell">
+          <p>Y</p>
+        </div>
+        <div class="w3-container w3-green w3-cell">
+          <span id="y">
+            <p></p>
+          </span>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <ul class="w3-ul w3-card-4" style="width:10%">
+    <li>Robot Turtle2</li>
+    <li>
+      <div class="w3-container">
+        <div class="w3-container w3-blue w3-cell">
+          <p>X</p>
+        </div>
+        <div class="w3-container w3-green w3-cell">
+          <span id="x2">
+            <p></p>
+          </span>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="w3-container">
+        <div class="w3-container w3-blue w3-cell">
+          <p>Y</p>
+        </div>
+        <div class="w3-container w3-green w3-cell">
+          <span id="y2">
+            <p></p>
+          </span>
+        </div>
+      </div>
+    </li>
+  </ul>
+  <ul class="w3-ul w3-card-4" style="width:10%">
+    <li>OPTITRACK</li>
+    <li>
+      <div class="w3-container">
+        <div class="w3-container w3-pink w3-cell">
+          <p>X</p>
+        </div>
+        <div class="w3-container w3-green w3-cell">
+          <span id="x3">
+            <p></p>
+          </span>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="w3-container">
+        <div class="w3-container w3-pink w3-cell">
+          <p>Y</p>
+        </div>
+        <div class="w3-container w3-green w3-cell">
+          <span id="y3">
+            <p></p>
+          </span>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="w3-container">
+        <div class="w3-container w3-pink w3-cell">
+          <p>Z</p>
+        </div>
+        <div class="w3-container w3-green w3-cell">
+          <span id="z3">
+            <p></p>
+          </span>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <div id="zone_joystick" style="position: relative;"></div>
+  <canvas id="canvas1" width="490" height="520"></canvas>
+</body>
+
+</html>

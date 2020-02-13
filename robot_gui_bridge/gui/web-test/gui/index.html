@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<title>Example Ros Web</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<script language="JavaScript" type="text/javascript" src="./js/jquery/jquery-3.4.1.slim.min.js"></script>
+  <script type="text/javascript" src="../build/roslib.min.js"></script>
+  <script type="text/javascript" src="../build/nipplejs.js"></script>
+  <script type="text/javascript" src="./view.js"></script>
+
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey">
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+  <span class="w3-bar-item w3-right">Logo</span>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    <div class="w3-col s4">
+      <img src="./images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
+    </div>
+    <div class="w3-col s8 w3-bar">
+      <span>Welcome, <strong>Ros turtle</strong></span><br>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+    </div>
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>Example ROS</h5>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><i class="fa fa-users fa-fw"></i>  Connect to Ros</a>
+    <div id='ros_info' class="w3-panel w3-blue">
+        <h3>Ros information</h3>
+        <p id="status"></p>
+    </div>
+    <p style="visibility: hidden;">Last /txt_msg received: <span id="msg"></span></p>
+    <p style="visibility: hidden;">Suscribed to topic: <span id="topic"></span> => <span id="topicType"></span> <span id="connectTopic"></span></p>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h5><b><i class="fa fa-dashboard"></i> My Dashboard</b></h5>
+  </header>
+
+  <div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3 id='count_t'>0</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Topics</h4>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-blue w3-padding-16">
+        <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3 id='count_r'>0</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4 >Robots</h4>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-teal w3-padding-16">
+        <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3 id='nodes'></h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>Ros nodes</h4>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-orange w3-text-white w3-padding-16">
+        <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>Not ros detected</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4>About ros</h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="w3-panel">
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class="w3-third">
+        <h5>Jostick</h5>
+        <div id="zone_joystick" style="position: relative;"></div>
+      </div>
+      <div class="w3-twothird">
+        <h5>Topics turtle</h5>
+        <table id="mytable" class="w3-table w3-striped w3-white w3-hoverable">
+            <thead>
+                <tr class="w3-light-grey w3-hover-red">
+                  <th>Id NodeRos</th>
+                  <th>Topic Name</th>
+                  <th>Topic type</th>
+                  
+                </tr>
+              </thead>
+          <tr>
+            <td><i class="fa fa-user w3-text-blue w3-large  "></i></td>
+            <td>There  aren't any robots here</td>
+            <td><i>Try to connect with ROS</i></td>
+          </tr>
+          
+        </table>
+      </div>
+    </div>
+  </div>
+  <hr>
+    
+  <br>
+  <div class="w3-container w3-dark-grey w3-padding-32">
+    <div class="w3-row">
+      <div class="w3-container w3-third">
+        <h5 class="w3-bottombar w3-border-green">Value Names</h5>
+        <p>X from pose:</p>
+        <p>Y from pose:</p>
+      </div>
+      <div class="w3-container w3-third">
+        <h5 class="w3-bottombar w3-border-red">Values</h5>
+        <p><span id="x"></span></p>
+        
+        <span id="y"><p></p></span>
+      </div>
+      <div class="w3-container w3-third">
+        <h5 class="w3-bottombar w3-border-orange">Target</h5>
+        <canvas id="canvas1" width="490" height="520"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+ 
+  <div id="id01" class="w3-modal w3-animate-opacity ">
+    <div class="w3-modal-content w3-card-4">
+      <header class="w3-container w3-teal"> 
+        <span onclick="document.getElementById('id01').style.display='none'" 
+        class="w3-button w3-large w3-display-topright">&times;</span>
+        <h2 id="modal_header"></h2>
+      </header>
+      <div class="w3-container">
+        <p id="modal_text"></p>
+        <p id="modal_text2"></p>
+      </div>
+      <footer class="w3-container w3-teal">
+        <p<button id="modal_connect_button" onclick="onConnectModal()"class="w3-button w3-block w3-red w3-left-align">Connect to</button>></p>
+      </footer>
+    </div>
+  </div>
+</div>
+  <!-- Footer -->
+  <footer class="w3-container w3-padding-16 w3-light-grey">
+    <h4>Manu Example</h4>
+    <p>Getting code here <a href="https://github.com/manujose94/ROS-web-and-python" target="_blank">w3.css</a></p>
+  </footer>
+
+  <!-- End page content -->
+</div>
+<script type="text/javascript" src="./index.js"></script>
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+    overlayBg.style.display = "none";
+  } else {
+    mySidebar.style.display = 'block';
+    overlayBg.style.display = "block";
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+  mySidebar.style.display = "none";
+  overlayBg.style.display = "none";
+}
+</script>
+
+</body>
+</html>
