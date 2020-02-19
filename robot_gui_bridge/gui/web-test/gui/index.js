@@ -8,6 +8,8 @@ var ros = new ROSLIB.Ros({
 });
 var new_listener;
 var array_listeners = [];
+var messageMap_suscribed= new Map()
+
 //document.getElementById("myP").style.visibility = "hidden";
 
 ros.on('connection', function() {
@@ -25,7 +27,8 @@ ros.on('close', function() {
 array_listeners.push( new ROSLIB.Topic({
   ros : ros,
   name : '/turtle1/pose',
-  messageType : 'turtlesim/Pose'
+  messageType : 'turtlesim/Pose',
+  info: false
 }))
 
 array_listeners[array_listeners.length-1].subscribe(function(m) { 
@@ -48,7 +51,9 @@ array_listeners[array_listeners.length-1].subscribe(function(m) {
 
 function onConnectModal(){
   console.log("Connect by modal",topic_selected)
-  
+  let name =document.getElementById("modal_text").textContent;
+  let type =document.getElementById("modal_text").textContent;
+  onConnectTopic([topic_selected.name,topic_selected.type])
   }
 
 /**
@@ -187,7 +192,8 @@ function onConnectTopic(topicArray) {
       array_listeners.push( new ROSLIB.Topic({
         ros : ros,
         name : topicArray[0],
-        messageType : topicArray[1]
+        messageType : topicArray[1],
+        info: false
       }))
       array_listeners[array_listeners.length-1].subscribe(function(m) { 
         var n = this.name.includes("turtle2");
@@ -195,13 +201,26 @@ function onConnectTopic(topicArray) {
         if(n){
           if(m){
             
-            document.getElementById("x2").innerHTML = String(m.x).substring(0, 4);
-            document.getElementById("y2").innerHTML = String(m.y).substring(0, 4);
+            //document.getElementById("x2").innerHTML = String(m.x).substring(0, 4);
+            //document.getElementById("y2").innerHTML = String(m.y).substring(0, 4);
             //document.getElementById("msg").innerHTML = "Data from :"+current_topic;
-            if(one)console.log(m);
+            if(one){console.groupCollapsed(m);
+              addViewNewSubs(this);
+              let {name} = this
+              console.table(this);
+              ros.getMessageDetails(this.messageType,function(params) {
+                console.warn("MessageDetails",params,name);
+
+                //messageMap_suscribed.set("")
+               });
+            
+            }
             one=false;
           }
         }else{
+          /**
+           * ? It's for a Optitrack option
+           */
           var n = this.name.includes("vrpn_client_node");
           if(n){
             if(one2)console.log(m.pose);

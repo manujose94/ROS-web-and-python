@@ -26,7 +26,7 @@ function filloutTable(array/** topic names */, array2/** topic type */) {
             '<tr class="w3-hover-text-green">' +
             "<td>" + fields[1] + "</td>" +
             "<td>" + array[i] + "</td>" +
-            "<td>" + "x:" + array2[i] + "</td>" +
+            "<td>" + array2[i] + "</td>" +
             "</tr>"
         );
 
@@ -40,6 +40,7 @@ function filloutTable(array/** topic names */, array2/** topic type */) {
                 this.style.backgroundColor = "#D5E9FF";
                 document.getElementById('modal_header').innerText = selected_row.cells[0].innerText;
                 document.getElementById('modal_text').innerText = selected_row.cells[1].innerText;
+                document.getElementById('modal_text2').innerText = selected_row.cells[2].innerText;
                 document.getElementById('modal_connect_button').innerText = 'Connecto to:'+selected_row.cells[1].innerText;
                 document.getElementById('id01').style.display = 'block'
                 topic_selected.name=selected_row.cells[1].innerText;
@@ -65,6 +66,8 @@ function filloutTable(array/** topic names */, array2/** topic type */) {
 
 }
 
+
+
 function getCurrentDate(){
     let  d = new Date();
     let date_format= ("0" + d.getDate()).slice(-2) + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
@@ -72,3 +75,20 @@ function getCurrentDate(){
     return date_format;
 }
 
+function addViewNewSubs(objRos){
+    let {name, messageType} =objRos;
+    let simplename=getNodeName_fromNameTopic(name);
+    console.log({simplename})
+    let id1="x";let id2="y"
+        let sus_names='<div id="'+simplename+'"><p> X '+simplename+' pose:</p>'+
+                      '<p>Y '+simplename+' pose:</p></div>'
+        //var para = document.createElement(sus_names);
+
+        document.getElementById("subs_names").innerHTML += sus_names;
+     
+ }
+
+ function getNodeName_fromNameTopic(name){
+    if(name)return name.split("/")[1]
+    else return null;
+ }

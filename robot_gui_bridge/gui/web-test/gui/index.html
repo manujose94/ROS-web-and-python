@@ -136,13 +136,14 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <br>
   <div class="w3-container w3-dark-grey w3-padding-32">
     <div class="w3-row">
-      <div class="w3-container w3-third">
+      <div id="subs_names"  class="w3-container w3-third">
         <h5 class="w3-bottombar w3-border-green">Value Names</h5>
         <p>X from pose:</p>
         <p>Y from pose:</p>
+       
       </div>
       <div class="w3-container w3-third">
-        <h5 class="w3-bottombar w3-border-red">Values</h5>
+        <h5 id="subs_value" class="w3-bottombar w3-border-red">Values</h5>
         <p><span id="x"></span></p>
         
         <span id="y"><p></p></span>
@@ -160,7 +161,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <div class="w3-modal-content w3-card-4">
       <header class="w3-container w3-teal"> 
         <span onclick="document.getElementById('id01').style.display='none'" 
-        class="w3-button w3-large w3-display-topright">&times;</span>
+        class="w3-button w3-display-topright">&times;</span>
         <h2 id="modal_header"></h2>
       </header>
       <div class="w3-container">
