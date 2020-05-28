@@ -1,7 +1,7 @@
 # ROS web Simple example
 
 In this project there is a simple example how to use [rosbridge serve](http://wiki.ros.org/rosbridge_suite)r ands roslibjs to comunicate with ROS using yout web browser.
-The final objective is to create a simple html as viewer that allow the browSer to show params about the robot subscribed by means of ROS and it can publish specific data to simulate robot.
+The final objective is to create a simple html as a viewer that allow the browser to show params about the robot subscribed by means of ROS and it can publish specific data to simulate robot.
 
 In this case, the robot will be a turtle thanks to turtlesim provide for ROS.
 
