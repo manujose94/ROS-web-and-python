@@ -1,13 +1,10 @@
 # ROS web Simple example
 
 In this project there is a simple example how to use [rosbridge serve](http://wiki.ros.org/rosbridge_suite)r ands roslibjs to comunicate with ROS using yout web browser.
-The final objective is to create a simple html as viewer that allow the brower to show param about the robot suscribed by means of Ros and it can publish specific data to simulate robot.
+The final objective is to create a simple html as viewer that allow the browSer to show params about the robot subscribed by means of ROS and it can publish specific data to simulate robot.
 
 In this case, the robot will be a turtle thanks to turtlesim provide for ROS.
 
-## New Version
-
-Currently, It's being has implemented two turtles ( 2 robots ) to improve the work of interaction between robots.
 
 ## Requeriments
 
@@ -24,6 +21,8 @@ Read followings documents: [DOC Folder](https://github.com/manujose94/ROS-web-an
 
 ## Simulator
 
+To get started, It is advisable to do tests with **TurtleSim**
+
 **TurtleSim**, this must be launch through the next command:
 
 ```sh
@@ -38,9 +37,9 @@ Ros workspace  is **catkin_ws** and workspace where contain this example is **ro
     │   │   ├── Makefile
     │   │   ├── package.xml
     │   │   └── test_results
-    │   └── robot_gui_bridge
+    │   └── robot_gui_bridge #This folder is created when lauch catkin_make or catkin build
     ├── devel
-    └── src
+    └── src #Folder where contain all our projects
         ├── CMakeLists.txt -> /opt/ros/kinetic/share/catkin/cmake/toplevel.cmake
         └── robot_gui_bridge
             ├── build
@@ -54,13 +53,16 @@ Ros workspace  is **catkin_ws** and workspace where contain this example is **ro
             │   └── websocket.launch
             └── package.xml
 ## Creating a workspace
+
+**This is a example where the new package (robot_gui_bridge) uses the dependencie rosbridge_server **
+
 ```shell
 mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/src
 catkin create pkg robot_gui_bridge --catkin-deps rosbridge_server
 cd ~/catkin_ws
 ```
-You could install the package manually using a command `apt-get install ros-melodic-rosbridge-server`
+You could install the package manually using a command `apt-get install ros-kinetic-rosbridge-server`
 ## Launch example
 
 ### Before starting
@@ -95,13 +97,17 @@ student@ubuntu:~$ cd ~/catkin_ws
 student@ubuntu:~/catkin_ws$ catkin build
 student@ubuntu:~/catkin_ws$ . ~/catkin_ws/devel/setup.bash
 ````
+Information about Building a ROS package [here](http://wiki.ros.org/ROS/Tutorials/BuildingPackages) 
+
 If the codec that we want to launch if **.py**, add it ejecutable permission:
 student@ubuntu:~/catkin_ws/src/beginner_tutorials/src$ sudo chmod +x goto.py
+
 ### Launch
 #### 1.   Initialize
 ````sh
 student@ubuntu:~$ roscore
 ````
+What is rocore and because it's important? [here](http://wiki.ros.org/roscore)
 #### 2. (goto.py works over turtle simulator)
 ````sh
 student@ubuntu:~$ rosrun beginner_tutorials  beginner_tutorials/src/goto.py
